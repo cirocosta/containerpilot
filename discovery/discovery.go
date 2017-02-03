@@ -6,6 +6,7 @@ import log "github.com/Sirupsen/logrus"
 // which all service discovery backends must implement
 type ServiceBackend interface {
 	SendHeartbeat(service *ServiceDefinition)
+	Register(service *ServiceDefinition)
 	CheckForUpstreamChanges(backendName string, backendTag string) bool
 	MarkForMaintenance(service *ServiceDefinition)
 	Deregister(service *ServiceDefinition)

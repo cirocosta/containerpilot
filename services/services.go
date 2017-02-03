@@ -147,6 +147,7 @@ func (s Service) PollTime() time.Duration {
 // health check to the discovery service.
 func (s *Service) PollAction() {
 	if err := s.CheckHealth(); err == nil {
+    fmt.Println(">>>> Health checked ;)")
 		s.SendHeartbeat()
 	}
 }
@@ -166,6 +167,11 @@ func (s *Service) MarkForMaintenance() {
 	s.discoveryService.MarkForMaintenance(s.definition)
 }
 
+// Register will register this instance of the service as fail
+func (s *Service) Register() {
+	s.discoveryService.Register(s.definition)
+}
+
 // Deregister will deregister this instance of the service
 func (s *Service) Deregister() {
 	s.discoveryService.Deregister(s.definition)
@@ -173,12 +179,13 @@ func (s *Service) Deregister() {
 
 // CheckHealth runs the service's health command, returning the results
 func (s *Service) CheckHealth() error {
-
 	// if we have a valid Service but there's no health check
 	// set, assume it always passes (ex. telemetry service).
 	if s.healthCheckCmd == nil {
 		return nil
 	}
+
+  fmt.Println(">> Running health check...")
 	return commands.RunWithTimeout(s.healthCheckCmd, log.Fields{
 		"process": "health", "serviceName": s.Name, "serviceID": s.ID})
 }

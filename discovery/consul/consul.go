@@ -105,27 +105,34 @@ func (c *Consul) MarkForMaintenance(service *discovery.ServiceDefinition) {
 	}
 }
 
-// SendHeartbeat writes a TTL check status=ok to the consul store.
-// If consul has never seen this service, we register the service and
-// its TTL check.
-func (c *Consul) SendHeartbeat(service *discovery.ServiceDefinition) {
+// Register registers the service and its check in consul
+func (c *Consul) Register(service *discovery.ServiceDefinition) {
 	if !c.wasRegistered {
 		if err := c.registerService(*service); err != nil {
 			log.Warnf("Service registration failed: %s", err)
 			return
 		}
-		c.wasRegistered = true
-	}
-	if err := c.Agent().PassTTL(service.ID, "ok"); err != nil {
-		log.Infof("Service not registered: %v", err)
-		if err = c.registerService(*service); err != nil {
-			log.Warnf("Service registration failed: %s", err)
-			return
-		}
-		if err = c.registerCheck(*service); err != nil {
+
+    if err := c.registerCheck(*service); err != nil {
 			log.Warnf("Check registration failed: %s", err)
 			return
 		}
+
+		c.wasRegistered = true
+    log.Infof("Service registered: %v", service.Name)
+	}
+}
+
+// SendHeartbeat writes a TTL check status=ok to the consul store.
+// If consul has never seen this service, we register the service and
+// its TTL check.
+func (c *Consul) SendHeartbeat(service *discovery.ServiceDefinition) {
+  fmt.Println(">>>>>> Going to send heartbeat ...")
+  c.Register(service);
+
+	if err := c.Agent().PassTTL(service.ID, "ok"); err != nil {
+		log.Infof("Service not registered: %v", err)
+
 		// now that we're ensured we're registered, we can push the
 		// heartbeat again
 		if err := c.Agent().PassTTL(service.ID, "ok"); err != nil {
@@ -154,9 +161,11 @@ func (c *Consul) registerService(service discovery.ServiceDefinition) error {
 
 func (c *Consul) registerCheck(service discovery.ServiceDefinition) error {
 	var deregisterCriticalServiceAfter string
+
 	if service.ConsulExtras != nil {
 		deregisterCriticalServiceAfter = service.ConsulExtras.DeregisterCriticalServiceAfter
 	}
+
 	return c.Agent().CheckRegister(
 		&consul.AgentCheckRegistration{
 			ID:        service.ID,
@@ -166,6 +175,7 @@ func (c *Consul) registerCheck(service discovery.ServiceDefinition) error {
 			AgentServiceCheck: consul.AgentServiceCheck{
 				TTL: fmt.Sprintf("%ds", service.TTL),
 				DeregisterCriticalServiceAfter: deregisterCriticalServiceAfter,
+        Status:    consul.HealthCritical,
 			},
 		},
 	)

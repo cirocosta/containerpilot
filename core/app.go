@@ -169,6 +169,8 @@ func (a *App) Run() {
 			os.Exit(code)
 		}
 	}
+
+  a.forAllServices(registerService)
 	a.handleCoprocesses()
 	a.handlePolling()
 
@@ -273,6 +275,11 @@ func (a *App) stopPolling() {
 func markServiceForMaintenance(service *services.Service) {
 	log.Infof("Marking for maintenance: %s", service.Name)
 	service.MarkForMaintenance()
+}
+
+func registerService(service *services.Service) {
+	log.Infof("Reregistering service: %s", service.Name)
+	service.Register()
 }
 
 func deregisterService(service *services.Service) {

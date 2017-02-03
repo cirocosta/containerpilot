@@ -99,8 +99,8 @@ func (c *Etcd) MarkForMaintenance(service *discovery.ServiceDefinition) {
 	c.deregisterService(service)
 }
 
-// SendHeartbeat refreshes the TTL of this associated etcd node
-func (c *Etcd) SendHeartbeat(service *discovery.ServiceDefinition) {
+// Register registers the service in etcd
+func (c *Etcd) Register(service *discovery.ServiceDefinition) {
 	if !c.wasRegistered {
 		if err := c.registerService(service); err != nil {
 			log.Warnf("Service registration failed: %s", err)
@@ -108,6 +108,12 @@ func (c *Etcd) SendHeartbeat(service *discovery.ServiceDefinition) {
 		}
 		c.wasRegistered = true
 	}
+}
+
+// SendHeartbeat refreshes the TTL of this associated etcd node
+func (c *Etcd) SendHeartbeat(service *discovery.ServiceDefinition) {
+  c.Register(service)
+
 	if err := c.updateServiceTTL(service); err != nil {
 		log.Infof("Service not registered, registering...")
 		if err := c.registerService(service); err != nil {

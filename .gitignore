@@ -35,3 +35,5 @@ Godeps/_workspace/
 
 # fake paths from overlaying volumes in Docker
 /src
+
+containerpilot
