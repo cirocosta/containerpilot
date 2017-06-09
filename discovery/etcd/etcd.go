@@ -8,10 +8,10 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/coreos/etcd/client"
-	"github.com/joyent/containerpilot/utils"
+	"github.com/cirocosta/containerpilot/utils"
 	"golang.org/x/net/context"
 
-	"github.com/joyent/containerpilot/discovery"
+	"github.com/cirocosta/containerpilot/discovery"
 )
 
 func init() {

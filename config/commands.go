@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/joyent/containerpilot/commands"
+	"github.com/cirocosta/containerpilot/commands"
 )
 
 func (cfg *rawConfig) parsePreStart() (*commands.Command, error) {

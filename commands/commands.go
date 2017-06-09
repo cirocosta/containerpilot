@@ -11,7 +11,7 @@ import (
 	"time"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/joyent/containerpilot/utils"
+	"github.com/cirocosta/containerpilot/utils"
 )
 
 const errNoChild = "wait: no child processes"

@@ -11,14 +11,14 @@ import (
 	"strings"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/joyent/containerpilot/backends"
-	"github.com/joyent/containerpilot/commands"
-	"github.com/joyent/containerpilot/coprocesses"
-	"github.com/joyent/containerpilot/discovery"
-	"github.com/joyent/containerpilot/services"
-	"github.com/joyent/containerpilot/tasks"
-	"github.com/joyent/containerpilot/telemetry"
-	"github.com/joyent/containerpilot/utils"
+	"github.com/cirocosta/containerpilot/backends"
+	"github.com/cirocosta/containerpilot/commands"
+	"github.com/cirocosta/containerpilot/coprocesses"
+	"github.com/cirocosta/containerpilot/discovery"
+	"github.com/cirocosta/containerpilot/services"
+	"github.com/cirocosta/containerpilot/tasks"
+	"github.com/cirocosta/containerpilot/telemetry"
+	"github.com/cirocosta/containerpilot/utils"
 )
 
 type rawConfig struct {

@@ -1,15 +1,15 @@
-package main // import "github.com/joyent/containerpilot"
+package main // import "github.com/cirocosta/containerpilot"
 
 import (
 	"runtime"
 
-	"github.com/joyent/containerpilot/core"
+	"github.com/cirocosta/containerpilot/core"
+  "flag"
 
 	log "github.com/Sirupsen/logrus"
 
 	// Import backends so that they initialize
-	_ "github.com/joyent/containerpilot/discovery/consul"
-	_ "github.com/joyent/containerpilot/discovery/etcd"
+	_ "github.com/cirocosta/containerpilot/discovery/consul"
 )
 
 // Main executes the containerpilot CLI
@@ -22,5 +22,5 @@ func main() {
 	if configErr != nil {
 		log.Fatal(configErr)
 	}
-	app.Run() // Blocks forever
+	app.Run(flag.Args()) // Blocks forever
 }

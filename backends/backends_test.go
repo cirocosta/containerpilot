@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/joyent/containerpilot/commands"
+	"github.com/cirocosta/containerpilot/commands"
 )
 
 func TestOnChangeCmd(t *testing.T) {

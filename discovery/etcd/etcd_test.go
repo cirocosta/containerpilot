@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/coreos/etcd/client"
-	"github.com/joyent/containerpilot/discovery"
+	"github.com/cirocosta/containerpilot/discovery"
 	"golang.org/x/net/context"
 )
 

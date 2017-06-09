@@ -8,8 +8,8 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	consul "github.com/hashicorp/consul/api"
-	"github.com/joyent/containerpilot/discovery"
-	"github.com/joyent/containerpilot/utils"
+	"github.com/cirocosta/containerpilot/discovery"
+	"github.com/cirocosta/containerpilot/utils"
 )
 
 func init() {
@@ -127,7 +127,6 @@ func (c *Consul) Register(service *discovery.ServiceDefinition) {
 // If consul has never seen this service, we register the service and
 // its TTL check.
 func (c *Consul) SendHeartbeat(service *discovery.ServiceDefinition) {
-  fmt.Println(">>>>>> Going to send heartbeat ...")
   c.Register(service);
 
 	if err := c.Agent().PassTTL(service.ID, "ok"); err != nil {

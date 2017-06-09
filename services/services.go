@@ -6,9 +6,9 @@ import (
 	"time"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/joyent/containerpilot/commands"
-	"github.com/joyent/containerpilot/discovery"
-	"github.com/joyent/containerpilot/utils"
+	"github.com/cirocosta/containerpilot/commands"
+	"github.com/cirocosta/containerpilot/discovery"
+	"github.com/cirocosta/containerpilot/utils"
 )
 
 // Service configures the service, discovery data, and health checks
@@ -147,7 +147,6 @@ func (s Service) PollTime() time.Duration {
 // health check to the discovery service.
 func (s *Service) PollAction() {
 	if err := s.CheckHealth(); err == nil {
-    fmt.Println(">>>> Health checked ;)")
 		s.SendHeartbeat()
 	}
 }
@@ -185,7 +184,6 @@ func (s *Service) CheckHealth() error {
 		return nil
 	}
 
-  fmt.Println(">> Running health check...")
 	return commands.RunWithTimeout(s.healthCheckCmd, log.Fields{
 		"process": "health", "serviceName": s.Name, "serviceID": s.ID})
 }

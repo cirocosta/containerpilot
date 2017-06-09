@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/joyent/containerpilot/commands"
-	"github.com/joyent/containerpilot/utils"
+	"github.com/cirocosta/containerpilot/commands"
+	"github.com/cirocosta/containerpilot/utils"
 )
 
 // Some magic numbers used internally by the coprocess restartLimits

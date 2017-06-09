@@ -10,14 +10,14 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/joyent/containerpilot/backends"
-	"github.com/joyent/containerpilot/commands"
-	"github.com/joyent/containerpilot/config"
-	"github.com/joyent/containerpilot/coprocesses"
-	"github.com/joyent/containerpilot/discovery"
-	"github.com/joyent/containerpilot/services"
-	"github.com/joyent/containerpilot/tasks"
-	"github.com/joyent/containerpilot/telemetry"
+	"github.com/cirocosta/containerpilot/backends"
+	"github.com/cirocosta/containerpilot/commands"
+	"github.com/cirocosta/containerpilot/config"
+	"github.com/cirocosta/containerpilot/coprocesses"
+	"github.com/cirocosta/containerpilot/discovery"
+	"github.com/cirocosta/containerpilot/services"
+	"github.com/cirocosta/containerpilot/tasks"
+	"github.com/cirocosta/containerpilot/telemetry"
 
 	log "github.com/Sirupsen/logrus"
 )
@@ -148,12 +148,11 @@ func getEnvVarNameFromService(service string) string {
 }
 
 // Run starts the application and blocks until finished
-func (a *App) Run() {
+func (a *App) Run(args []string) {
 	// Set up handlers for polling and to accept signal interrupts
 	if 1 == os.Getpid() {
 		reapChildren()
 	}
-	args := getArgs(flag.Args())
 	cmd, err := commands.NewCommand(args, "0")
 	if err != nil {
 		log.Errorf("Unable to parse command arguments: %v", err)

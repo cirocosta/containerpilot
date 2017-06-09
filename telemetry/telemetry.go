@@ -7,7 +7,7 @@ import (
 	"sync"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/joyent/containerpilot/utils"
+	"github.com/cirocosta/containerpilot/utils"
 	"github.com/prometheus/client_golang/prometheus"
 )
 
@@ -75,7 +75,7 @@ func (t *Telemetry) Serve() {
 	// TODO: golang's native implementation of http.Server.Server() cannot
 	// support graceful reload. We need to select an alternate implementation
 	// but in the meantime we need to back-out the change to reloading
-	// ref https://github.com/joyent/containerpilot/pull/165
+	// ref https://github.com/cirocosta/containerpilot/pull/165
 	if listener != nil {
 		return
 	}

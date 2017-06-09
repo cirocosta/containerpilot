@@ -9,7 +9,7 @@ import (
 	"testing"
 
 	// need to import this so that we have a registered backend
-	_ "github.com/joyent/containerpilot/discovery/consul"
+	_ "github.com/cirocosta/containerpilot/discovery/consul"
 )
 
 func TestParseEnvironment(t *testing.T) {
